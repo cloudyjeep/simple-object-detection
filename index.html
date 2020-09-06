@@ -4,7 +4,7 @@
   <meta charset='UTF-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
   <meta http-equiv='X-UA-Compatible' content='ie=edge'>
-  <link rel='stylesheet' href='/assets/css/style.css' />
+  <!-- <link rel='stylesheet' href='assets/css/style.css' /> -->
   <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" /> -->
   <title>Simple Object Detection</title>
 </head>
@@ -14,10 +14,29 @@
   </div>
   <script type="text/javascript">
     (function(){
-      const elm = document.createElement('script')
-      elm.src = '/loader/system.js',
-      elm.onload = () => System.import("/scripts/bundle.js")
-      document.head.appendChild(elm)
+
+      document.head.appendChild.apply(null, [
+        // CSS
+        createElement('link', {
+          href: resolveUrl('assets/css/style.css'),
+          rel: 'stylesheet'
+        }),
+        // JS
+        createElement('script', {
+          src: resolveUrl('loader/system.js'),
+          onload: function(){return System.import(resolveUrl('scripts/bundle.js'))}
+        })
+      ])
+      var createElement = function(type, options) {
+        var elm = document.createElement(type)
+        for (var i in options) elm[i] = options[i];
+        return elm
+      }
+      var resolveUrl = function(url){
+        var isGithub = location.href.split('/')[3]
+        var preffix = isGithub? location.pathname.split('/')[1] + '/dist/' : ''
+        return '/' + preffix + url
+      }
     })()
   </script>
 </body>
