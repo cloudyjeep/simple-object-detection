@@ -14,7 +14,16 @@
   </div>
   <script type="text/javascript">
     (function(){
-
+      function createElement(type, options) {
+        var elm = document.createElement(type)
+        for (var i in options) elm[i] = options[i];
+        return elm
+      }
+      function resolveUrl(url){
+        var isGithub = location.href.split('/')[3]
+        var preffix = isGithub? location.pathname.split('/')[1] + '/dist/' : ''
+        return '/' + preffix + url
+      }
       document.head.appendChild.apply(null, [
         // CSS
         createElement('link', {
@@ -27,16 +36,6 @@
           onload: function(){return System.import(resolveUrl('scripts/bundle.js'))}
         })
       ])
-      var createElement = function(type, options) {
-        var elm = document.createElement(type)
-        for (var i in options) elm[i] = options[i];
-        return elm
-      }
-      var resolveUrl = function(url){
-        var isGithub = location.href.split('/')[3]
-        var preffix = isGithub? location.pathname.split('/')[1] + '/dist/' : ''
-        return '/' + preffix + url
-      }
     })()
   </script>
 </body>
