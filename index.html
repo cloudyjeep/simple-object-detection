@@ -24,7 +24,7 @@
         var preffix = isGithub? location.pathname.split('/')[1] + '/dist/' : ''
         return '/' + preffix + url
       }
-      document.head.appendChild.apply(null, [
+      document.head.appendChild.apply(document.head, [
         // CSS
         createElement('link', {
           href: resolveUrl('assets/css/style.css'),
