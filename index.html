@@ -23,8 +23,8 @@
         var isGithub = location.href.split('/')[3]
         var preffix = isGithub? location.pathname.split('/')[1] + '/dist/' : ''
         return '/' + preffix + url
-      }
-      document.head.appendChild.apply(document.head, [
+      };
+      [
         // CSS
         createElement('link', {
           href: resolveUrl('assets/css/style.css'),
@@ -33,9 +33,11 @@
         // JS
         createElement('script', {
           src: resolveUrl('loader/system.js'),
-          onload: function(){return System.import(resolveUrl('scripts/bundle.js'))}
+          onload: function(){System.import(resolveUrl('scripts/bundle.js'))}
         })
-      ])
+      ].map(function(elm){ 
+        document.head.appendChild(elm) 
+      })
     })()
   </script>
 </body>
