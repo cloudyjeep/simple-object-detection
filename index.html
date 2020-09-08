@@ -20,7 +20,8 @@
         return elm
       }
       function resolveUrl(url){
-        var isGithub = location.href.split('/')[3]
+        var isGithub = false
+        // var isGithub = location.href.split('/')[3]
         var preffix = isGithub? location.pathname.split('/')[1] + '/dist/' : ''
         return '/' + preffix + url
       };
